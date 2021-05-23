@@ -193,10 +193,16 @@ window.addEventListener('DOMContentLoaded', function() {
         return await res.json();
     };
 
-    getResource('http://localhost:3000/menu')
-        .then(data => {
-            data.forEach(({img, altimg, title, descr, price}) => {
-                new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
+    // getResource('http://localhost:3000/menu')
+    //     .then(data => {
+    //         data.forEach(({img, altimg, title, descr, price}) => {
+    //             new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
+    //         });
+    //     });
+
+    axios.get('http://localhost:3000/menu')
+        .then(data => {data.data.forEach(({img, altimg, title, descr, price}) => {
+                 new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
             });
         });
 
@@ -281,4 +287,40 @@ window.addEventListener('DOMContentLoaded', function() {
     fetch('http://localhost:3000/menu')
         .then(data => data.json())
         .then(res => console.log(res));
+
+    //Slider
+
+    const slides = document.querySelectorAll(".offer__slide"),
+          prev = document.querySelector('.offer__slider-prev'),
+          next = document.querySelector('.offer__slider-next');
+
+    let slideIndex = 1;      
+          
+
+
+    slides.forEach(slide => {
+        slide.style.display = 'none';
+
+        if (slide.classList.contains('offer__slide-active')) {
+            slide.style.display = 'block';
+        }
+    });
+
+
+
+
+    prev.addEventListener('click', function(event) {
+        if !(slides[0].classList.contains('offer__slide-active') {
+            slide.style.display = 'none';
+
+        })
+        console.log(event);
+    });
+
+        next.addEventListener('click', function(event) {
+        console.log(event);
+    });
+
+
+
 });
