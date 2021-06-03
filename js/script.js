@@ -292,34 +292,62 @@ window.addEventListener('DOMContentLoaded', function() {
 
     const slides = document.querySelectorAll(".offer__slide"),
           prev = document.querySelector('.offer__slider-prev'),
-          next = document.querySelector('.offer__slider-next');
+          next = document.querySelector('.offer__slider-next'),
+          total = document.getElementById('total'),
+          current = document.getElementById('current');
 
     let slideIndex = 1;      
+
+    showSlides(slideIndex);
+
+    if (slides.length < 10) {
+        total.textContent = `0${slides.length}`;
+    } else {
+        total.textContent = 'slides.length';
+    }
           
+    function showSlides(n) {
+        if (n > slides.length) {
+            slideIndex = 1;
+        } 
+        if (n < 1) {
+            slideIndex = slides.length;
+        } 
 
+        slides.forEach((slide) => slide.style.display = 'none');
+        slides[slideIndex - 1].style.display = 'block';
 
-    slides.forEach(slide => {
-        slide.style.display = 'none';
-
-        if (slide.classList.contains('offer__slide-active')) {
-            slide.style.display = 'block';
+        if (slides.length < 10) {
+            current.textContent = `0${slideIndex}`;
+        } else {
+            current.textContent = slideIndex;
         }
+
+
+
+
+
+        // if (slideIndex < 10) {
+        //     document.getElementById('current').innerText = `0${slideIndex}`;
+        // } else {
+        //     document.getElementById('current').innerText = slideIndex;
+        // }
+        
+    }
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    prev.addEventListener('click', () => {
+        plusSlides(-1);
+    });
+
+    next.addEventListener('click', () => {
+        plusSlides(1);
     });
 
 
-
-
-    prev.addEventListener('click', function(event) {
-        if !(slides[0].classList.contains('offer__slide-active') {
-            slide.style.display = 'none';
-
-        })
-        console.log(event);
-    });
-
-        next.addEventListener('click', function(event) {
-        console.log(event);
-    });
 
 
 
